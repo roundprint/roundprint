@@ -1,10 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const passport = require('passport');
 
-///////////////////////////////////////
-//          INITILIAZE APP          //
-/////////////////////////////////////
+
+//=================================
+//         API ROUTES
+//=================================
+
+const user = require("./routes/api/users");
+
+
+
+//=================================
+//         APP INITIALISATION
+//=================================
 
 const app = express();
 const mongoose = require('mongoose');
@@ -14,6 +24,33 @@ mongoose
   .connect(process.env.DATABASE)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
+
+
+//=================================
+//         PARSERS
+//=================================
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+
+//=================================
+//       PAASPORT MIDDLEWARE
+//=================================
+
+app.use(passport.initialize());
+require("./middleware/passport")(passport);
+
+
+//=================================
+//       USE API ROUTES
+//=================================
+
+app.use("/api/users/", user);
+
+
+//=================================
+//       APP LISTENING
+//=================================
 
 const port = process.env.PORT || 5001;
 
