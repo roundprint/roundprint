@@ -17,7 +17,6 @@ const UserSchema = new Schema({
   },
   regnumber:{
       type: String,
-      required: true,
       unique: true,
       maxlength:8
   },
