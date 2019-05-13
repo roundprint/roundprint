@@ -6,6 +6,12 @@ const User = mongoose.model("users");
 
 require('dotenv').config();
 
+//=================================
+//            VALIDATIONS
+//=================================
+
+const isEmpty = require("../validation/is-empty");
+
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.SECRETKEY;
@@ -17,7 +23,7 @@ module.exports = passport => {
     new JwtStrategy(opts, (jwt_payload, done) => {
         User.findById(jwt_payload.id)
         .then(client => {
-          if (client.role === 'client') {
+          if (!isEmpty(client) && client.role === 'client') {
             return done(null, client);
           }
           return done(null, false);
@@ -31,7 +37,7 @@ module.exports = passport => {
     new JwtStrategy(opts, (jwt_payload, done) => {
       User.findById(jwt_payload.id)
         .then(manager => {
-          if (manager.role === 'manager') {
+          if (!isEmpty(manager) && manager.role === 'manager') {
             return done(null, manager);
           }
           return done(null, false);
@@ -45,7 +51,7 @@ module.exports = passport => {
     new JwtStrategy(opts, (jwt_payload, done) => {
         User.findById(jwt_payload.id)
         .then(admin => {
-          if (admin.role === 'admin') {
+          if (!isEmpty(admin) && admin.role === 'admin') {
             return done(null, admin);
           }
           return done(null, false);

@@ -11,28 +11,51 @@ require('dotenv').config();
 
 const Zone = require("../../models/zones");
 
+//=================================
+//            VALIDATIONS
+//=================================
+
+const validateZoneInput = require("../../validation/zone");
+const isEmpty = require("../../validation/is-empty");
+
 
 //=================================
-//          REGISTRATION
+//          CREATE OR EDIT ZONE
 //=================================
 
-router.post("/create",passport.authenticate('admin', { session: false }), (req, res) => {
+router.post("/create-edit",passport.authenticate('admin', { session: false }), (req, res) => {
 
+  const { errors, isValid } = validateZoneInput(req.body);
+
+  // Validating zone name field
+  if(!isValid){
+      return res.status(400).json(errors);
+  }
+
+  // Get fields
+  const zoneFields = {};
+  zoneFields.name =  req.body.name;
+  zoneFields.deliverytime =  req.body.deliverytime;
 
   Zone.findOne({ name:req.body.name }).then(zone => {
 
-    if (zone) {
+      if (zone) {
+          // Update
+          Zone.findOneAndUpdate(
+              { _id: zone._id },
+              { $set:zoneFields },
+              { new: true }
+          ).then(zone => res.json(zone));
 
-      return res.status(400).json({errors:'Zone already exist'});
+      }else{
+          
+          const newZone = new Zone(zoneFields)
 
-    }else {
-      const newZone = new Zone(req.body)
-
-      newZone
-      .save()
-      .then(zone => res.json(zone))
-      .catch(err => console.log(err));
-    }
+          newZone
+          .save()
+          .then(zone => res.json(zone))
+          .catch(err => console.log(err));
+      }
   }).catch(err => res.status(404).json(err));
 });
 
@@ -41,23 +64,14 @@ router.post("/create",passport.authenticate('admin', { session: false }), (req, 
 //         ALL DELIEVERY ZONES
 //=================================
 
-router.get("/all",
+router.get("/all-zones",
 (req, res) => {
   const errors = {};
 
   Zone.find()
-    .then(zone => {
-      if (!zone) {
-        errors.nozone = "There are no delivery zones available";
-        return res.status(404).json(errors);
-      }
-
-      return res.json(zone);
-
-      
-    })
+    .then(zone => res.json(zone))
     .catch(err =>
-      res.status(404).json({ profile: "There are no clients profile" })
+      res.status(404).json({ zone: "There are no zones" })
     );
 });
 
@@ -65,12 +79,24 @@ router.get("/all",
 //             DELETE ZONE
 //=================================
 
-router.delete(
-  "/remove/:id",
+router.post(
+  "/remove",
   passport.authenticate('admin', { session: false }),
   (req, res) => {
-    Zone.findOneAndRemove({ _id: req.zone.id }).then(() => {
-      res.json({ success: true });
+    
+    const { errors, isValid } = validateZoneInput(req.body);
+
+    // Validating zone name field
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
+
+    Zone.findOneAndRemove({ name: req.body.name }).then((zone) => {
+      if(!zone){
+        return res.status(404).json({success:false,message:"Zone not found"})
+      }
+
+      res.json({ success: true, message:`Zone ${req.body.name} succesfully deleted`});
     });
   }
 );
@@ -79,7 +105,7 @@ router.delete(
 //=================================
 
 router.delete(
-  "/remove/",
+  "/remove-all",
   passport.authenticate('admin', { session: false }),
   (req, res) => {
     Zone.findOneAndRemove({}).then(() => {

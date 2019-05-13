@@ -20,6 +20,7 @@ const isEmpty = require("../../validation/is-empty");
 //=================================
 
 const User = require("../../models/users");
+const Profile = require("../../models/profile");
 
 
 //=================================
@@ -59,28 +60,15 @@ router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Validating all body fields
-  if(req.body.role !== 'admin' || req.body.role !=='manager' && !isValid){
-    return res.status(400).json(errors);
+  if(((req.body.role === " ") || (req.body.role === "client")) && !isValid){
+    return res.status(400).json({errors});
   }
 
-  User.findOne({ regnumber:req.body.regnumber }).then(user => {
 
-    if (!isEmpty(user) && (user.regnumber === req.body.regnumber) && (user.email === req.body.email)) {
+  User.findOne({ email: req.body.email }).then(user => {
 
-      errors.email = "Email already exits";
-      errors.regnumber = "Registration number already exits";
-
-      return res.status(400).json(errors);
-
-    }else if(!isEmpty(user) && (user.regnumber === req.body.regnumber)){
-
-        errors.regnumber = "Registration number already exits";
-        return res.status(400).json(errors);
-
-    
-    }else if(!isEmpty(user) && (user.email === req.body.email)){
-
-        errors.email = "Email number already exits";
+     if(user){
+        errors.email = "Email already exits";
         return res.status(400).json(errors);
 
     }else {
@@ -150,32 +138,10 @@ router.post("/login", (req, res) => {
 
 
 //=================================
-//          CLIENT PROFILE
-//=================================
-
-router.get(
-  "/profile",
-  passport.authenticate("client", { session: false }),
-  (req, res) => {
-    const errors = {};
-
-    User.findOne({ _id: req.user.id })
-      .then(client => {
-        if (!client) {
-          errors.noclientprofile = "There is no profile for this client";
-          return res.status(404).json(errors);
-        }
-        res.json(client);
-      })
-      .catch(err => res.status(404).json(err));
-  }
-);
-
-//=================================
 //             ALL USER PROFILES
 //=================================
 
-router.get("/profile/all", passport.authenticate(['admin', 'manager'], { session: false }),
+router.get("/all-clients", passport.authenticate(['admin', 'manager'], { session: false }),
 (req, res) => {
   const errors = {};
 
@@ -186,114 +152,83 @@ router.get("/profile/all", passport.authenticate(['admin', 'manager'], { session
         return res.status(404).json(errors);
       }
 
-      user.filter(r=>r.role.includes('client')).map(user=>res.json(user));
+      user.filter(r=>r.role.includes('client'))
+      .map(user=>res.json(user))
+      .catch(err=>res.status(404).json({ profile: "There are no registered clients" }));;
 
       
     })
     .catch(err =>
-      res.status(404).json({ profile: "There are no clients profile" })
+      res.status(404).json({ profile: "There are no registered clients" })
     );
 });
 
-//=================================
-//         USER UPDATE PROFILE
-//=================================
-
-router.post(
-  "/edit-profile",
-  passport.authenticate("client", { session: false }),
-  (req, res) => {
-    //   TODO: Fields validation
-
-    // Get fields
-    const profileFields = {};
-    if (req.body.name) {
-      profileFields.name = req.body.name;
-    } else {
-      profileFields.name = req.user.name;
-    }
-    if (req.body.lastname) {
-      profileFields.lastname = req.body.lastname;
-    } else {
-      profileFields.lastname = req.user.lastname;
-    }
-    if (req.body.email) {
-      profileFields.email = req.body.email;
-    } else {
-      profileFields.email = req.user.email;
-    }
-    if (req.body.picture) {
-      profileFields.regnumber = req.body.regnumber;
-    } else {
-      profileFields.regnumber = req.user.regnumber;
-    }
-    if (req.body.password) {
-      profileFields.password = req.body.password;
-    } else {
-      profileFields.password = req.user.password;
-    }
-    if (req.body.phonenumber) {
-      profileFields.phonenumber = req.body.phonenumber;
-    } else {
-      profileFields.phonenumber = req.user.phonenumber;
-    }
-    if (req.body.deliverytime) {
-      profileFields.deliverytime = req.body.deliverytime;
-    } else {
-      profileFields.deliverytime = req.user.deliverytime;
-    }
-    if (req.body.deliveryzone) {
-      profileFields.deliveryzone = req.body.deliveryzone;
-    } else {
-      profileFields.deliveryzone = req.user.deliveryzone;
-    }
-
-    User.findOne({ _id: req.user.id }).then(client => {
-      if (client) {
-
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(profileFields.password, salt, (err, hash) => {
-              if (err) throw err;
-                profileFields.password = hash;
-
-                // Update
-                User.findOneAndUpdate(
-                    { _id: req.user.id },
-                    { $set: profileFields },
-                    { new: true }
-                ).then(client => res.json(client));
-            });
-          });
-      } else {
-        // Save Profile
-        newProfile = new User(profileFields);
-
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newProfile.password, salt, (err, hash) => {
-              if (err) throw err;
-              newProfile.password = hash;
-              newProfile
-                .save()
-                .then(profile => res.json(profile))
-                .catch(err => console.log(err));
-            });
-          });
-      }
-    });
-  }
-);
 
 //=================================
 //             DELETE USER(s)
 //=================================
 
-router.delete(
-  "/remove/:id",
-  passport.authenticate(['admin','client'], { session: false }),
+router.post(
+  "/remove-client",
+  passport.authenticate(['admin'], { session: false }),
   (req, res) => {
-    User.findOneAndRemove({ _id: req.user.id }).then(() => {
-      res.json({ success: true });
+
+    Profile.findOneAndRemove({ client: req.body.id }).then(() => {
+      User.findOneAndRemove({ _id: req.body.id, role:'client'}).then((client) =>
+        {
+          if(!isEmpty(client) && client.role === 'client'){
+              res.json({ success: true });
+          }else{
+            return res.status(401).json({success: false, error: 'This is not a client'})
+          }
+        }
+      ).catch(err=>res.status(404).json({success:false,error:'There is no such a client'}));
     });
+  }
+);
+
+
+//=================================
+//             ALL MANAGERS
+//=================================
+
+router.get("/all-managers", passport.authenticate(['admin'], { session: false }),
+(req, res) => {
+  const errors = {};
+
+  User.find()
+    .then(user => {
+      if (!user) {
+        errors.noclientprofile = "There are no managers profile";
+        return res.status(404).json(errors);
+      }
+
+      user.filter(r=>r.role.includes('manager'))
+      .map(user=>res.json(user))
+      .catch(err=>res.status(404).json({ profile: "There are no registered managers" }));
+
+    })
+    .catch(err =>
+      res.status(404).json({ profile: "There are no registered managers" })
+    );
+});
+
+//=================================
+//             DELETE MANAGER
+//=================================
+
+router.post(
+  "/remove-manager",
+  passport.authenticate('admin', { session: false }),
+  (req, res) => {
+    User.findOneAndRemove({ _id: req.body.id, role:'manager' }).then((manager) => {
+
+        if(!isEmpty(manager) && (manager.role === 'manager')){
+          res.json({ success: true });
+        }else{
+          return res.status(404).json({success: false, error: 'This is not a manager'})
+        }
+    }).catch(err=>res.status(404).json({success:false,error:'There is not a manager'}));
   }
 );
 

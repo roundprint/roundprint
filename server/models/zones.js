@@ -12,7 +12,7 @@ const ZoneSchema = new Schema({
     required: true
   },
   deliverytime:{
-    type: Schema.Types.ObjectId
+    type: String
   },
   date: {
     type: Date,

@@ -15,11 +15,6 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  regnumber:{
-      type: String,
-      unique: true,
-      maxlength:8
-  },
   email: {
     type: String,
     required: true
@@ -39,15 +34,6 @@ const UserSchema = new Schema({
   role:{
       type: String,
       default: 'client'
-  },
-  deliveryzone:{
-      type: Schema.Types.ObjectId
-  },
-  deliverytime:{
-    type: Schema.Types.ObjectId
-  },
-  token:{
-      type: String
   }
 });
 
