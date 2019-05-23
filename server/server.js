@@ -11,6 +11,7 @@ const passport = require('passport');
 const user = require("./routes/api/users");
 const zone = require("./routes/api/zones");
 const profile = require("./routes/api/profile");
+const job = require("./routes/api/jobs");
 
 
 
@@ -50,6 +51,7 @@ require("./middleware/passport")(passport);
 app.use("/api/users/", user);
 app.use("/api/zones/", zone);
 app.use("/api/profiles/", profile);
+app.use("/api/job/", job);
 
 
 //=================================
