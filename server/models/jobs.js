@@ -28,9 +28,15 @@ const JobSchema = new Schema({
     deliveryzone:{
         type: Schema.Types.ObjectId
     },
-    deliverytime:{
+    price:{
+      type: Float,
+      required: true
+    },
+    user:{
       type: Schema.Types.ObjectId
-      }
+
+    }
+   
   });
   
   module.exports = Job = mongoose.model("jobs", JobSchema);

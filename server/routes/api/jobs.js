@@ -39,13 +39,14 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
   // reject a file
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+  if (file.mimetype === 'doc/jpeg') {
     cb(null, true);
   } else {
     cb(null, false);
   }
 };
 
+// SET DOCUMENT SIZE
 const upload = multer({
   storage: storage,
   limits: {
@@ -53,6 +54,10 @@ const upload = multer({
   },
   fileFilter: fileFilter
 });
+
+
+
+// DONT MIND THIS CODE FROM HERE-> I AM USING IT AS BASIS
 
 const Product = require("../models/product");
 
