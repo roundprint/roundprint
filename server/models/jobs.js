@@ -10,7 +10,7 @@ const JobSchema = new Schema({
         type: String,
         default: 'assignment'
     },
-    document: {
+    upload: {
         type: String,
         required: true
       },
