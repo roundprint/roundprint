@@ -7,12 +7,11 @@ const Schema = mongoose.Schema;
 
 const JobSchema = new Schema({
 
-  _id: mongoose.Schema.Types.ObjectId,
     category:{
         type: String,
         default: 'assignment'
     },
-    jobDoc: {
+    job_document: {
         type: String,
         required: true
       },
