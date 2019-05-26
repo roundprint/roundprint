@@ -25,14 +25,17 @@ const JobSchema = new Schema({
       default: Date.now
     },
     deliveryzone:{
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: "zones"
+
     },
     price:{
       type: Float,
       required: true
     },
     user:{
-      type: Schema.Types.ObjectId
+      type: Schema.Types.ObjectId,
+      ref: "users"
 
     }
    
