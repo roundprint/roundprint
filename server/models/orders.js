@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
 
-    JobID:{
+    jobID:{
         type: Schema.Types.ObjectId
     },
     status: {
@@ -17,4 +17,4 @@ const OrderSchema = new Schema({
    
   });
   
-  module.exports = Job = mongoose.model("orders", OrderSchema);
+  module.exports = Order = mongoose.model("orders", OrderSchema);
