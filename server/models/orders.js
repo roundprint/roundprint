@@ -8,7 +8,8 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
 
     jobID:{
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: 'jobs'
     },
     status: {
         type: String,
