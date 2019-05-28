@@ -56,14 +56,52 @@ const upload = multer({
 });
 
 
+router.post("/", upload.single('job_document'), (req, res, next) => {
+  const job = new Job({
+    _id: new mongoose.Types.ObjectId(),
+    category: req.body.category,
+    price: req.body.price,
+    instructions: req.body.instructions,
+    job_document: req.file.path,
+    user:req.body.user,
+    deliveryzone:req.body.deliveryzone
+  });
+  job
+    .save()
+    .then(result => {
+      console.log(result);
+      res.status(201).json({
+        message: "You have submited your doc for a print",
+        createdJob: {
+          category: req.body.category,
+          price: req.body.price,
+         instructions: req.body.instructions,
+         job_document: req.file.path,
+         user:req.body.user,
+         deliveryzone:req.body.deliveryzone,
+            request: {
+                type: 'GET',
+                url: "http://localhost:3000/jobs/"
+            }
+        }
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
 
 // DONT MIND THIS CODE FROM HERE-> I AM USING IT AS BASIS
 
-const Product = require("../models/product");
+
 
 router.get("/", (req, res, next) => {
   Product.find()
-    .select("name price _id productImage")
+    .select("category price _id job_document")
     .exec()
     .then(docs => {
       const response = {
@@ -72,7 +110,7 @@ router.get("/", (req, res, next) => {
           return {
             name: doc.name,
             price: doc.price,
-            productImage: doc.productImage,
+            job_document: doc.job_document,
             _id: doc._id,
             request: {
               type: "GET",
@@ -88,38 +126,6 @@ router.get("/", (req, res, next) => {
       //           message: 'No entries found'
       //       });
       //   }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-});
-
-router.post("/", upload.single('productImage'), (req, res, next) => {
-  const product = new Product({
-    _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    price: req.body.price,
-    productImage: req.file.path 
-  });
-  product
-    .save()
-    .then(result => {
-      console.log(result);
-      res.status(201).json({
-        message: "Created product successfully",
-        createdProduct: {
-            name: result.name,
-            price: result.price,
-            _id: result._id,
-            request: {
-                type: 'GET',
-                url: "http://localhost:3000/products/" + result._id
-            }
-        }
-      });
     })
     .catch(err => {
       console.log(err);
