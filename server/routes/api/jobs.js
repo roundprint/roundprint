@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const multer = require('multer');
+const path = require('path');
 
 //=================================
 //              MODELS
@@ -34,6 +35,13 @@ const storage = multer.diskStorage({
     cb(null, new Date().toISOString() + file.originalname);
   }
 });
+
+// const storage = multer.diskStorage({
+//   destination: './public/uploads/',
+//   filename: function(req, file, cb){
+//     cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//   }
+// });
 
 // SET DOCUMENT EXT TYPE
 
@@ -75,14 +83,10 @@ router.post("/", upload.single('job_document'), (req, res, next) => {
         createdJob: {
           category: req.body.category,
           price: req.body.price,
-         instructions: req.body.instructions,
-         job_document: req.file.path,
-         user:req.body.user,
-         deliveryzone:req.body.deliveryzone,
-            request: {
-                type: 'GET',
-                url: "http://localhost:3000/jobs/"
-            }
+          instructions: req.body.instructions,
+          job_document: req.file.path,
+          user:req.body.user,
+          deliveryzone:req.body.deliveryzone,
         }
       });
     })
@@ -112,10 +116,7 @@ router.get("/", (req, res, next) => {
             price: doc.price,
             job_document: doc.job_document,
             _id: doc._id,
-            request: {
-              type: "GET",
-              url: "http://localhost:3000/products/" + doc._id
-            }
+        
           };
         })
       };
