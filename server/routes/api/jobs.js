@@ -66,7 +66,6 @@ const upload = multer({
 
 router.post("/", upload.single('job_document'), (req, res, next) => {
   const job = new Job({
-   // _id: new mongoose.Types.ObjectId(),
     category: req.body.category,
     price: req.body.price,
     instructions: req.body.instructions,
