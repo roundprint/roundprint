@@ -36,7 +36,10 @@ const JobSchema = new Schema({
     user:{
       type: Schema.Types.ObjectId,
       ref: "users"
-
+    },
+    timestamp: {
+      type: Number,
+      required: true
     }
    
   });
