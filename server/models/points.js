@@ -5,11 +5,7 @@ const Schema = mongoose.Schema;
 //    USER LOYALT POINTS SCHEMA
 //=================================
 
-const PointsSchema = new Schema({
-user_id:{
-   type: Schema.Types.ObjectId,
-   ref: "users"
-}, 
+const PointsSchema = new Schema({ 
 points:{
     type: Number,
     required:false
@@ -17,7 +13,8 @@ points:{
 order_id:{
     type: Schema.Types.ObjectId,
     ref:"orders"
-}
+},
 
+});
 
-})
+module.exports = Point = mongoose.model("points", PointsSchema);
