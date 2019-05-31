@@ -13,33 +13,25 @@ const JobSchema = new Schema({
     },
     job_document: {
         type: String,
-        required: false
+        required: true
       },
     instructions:{
         type: String,
-        required: false,
+        required: true,
         maxlength:100
     },
-    date: {
-      type: Date,
-      default: Date.now
-    },
     deliveryzone:{
-        type: Schema.Types.ObjectId,
-        ref: "zones"
+        type: Object,
+        required:true
 
     },
     price:{
       type: Number,
-      required: false
-    },
-    user:{
-      type: Schema.Types.ObjectId,
-      ref: "users"
+      required: true
     },
     timestamp: {
-      type: Number,
-      required: false
+      type: Date,
+      default: Date.now
     }
    
   });

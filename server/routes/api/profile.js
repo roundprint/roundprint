@@ -116,11 +116,11 @@ router.delete(
             profileFields.deliveryzone.name = zone.name;
             profileFields.deliveryzone.time = zone.deliverytime;
 
-            Profile.findOne({ user: req.user.id }).then(profile => {
+            Profile.findOne({ client: req.user.id }).then(profile => {
                 if (profile) {
                     // Update
                     Profile.findOneAndUpdate(
-                        { user: req.user.id },
+                        { client: req.user.id },
                         { $set: profileFields },
                         { new: true }
                     ).then(profile => res.json(profile));

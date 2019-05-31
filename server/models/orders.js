@@ -7,13 +7,17 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
 
-    jobID:{
+    job_id:{
         type: Schema.Types.ObjectId,
         ref: 'jobs'
     },
+    profile_id:{
+        type: Schema.Types.ObjectId,
+        ref: 'profile'
+    },
     status: {
         type: String,
-        required: true
+        required: false
       }
    
   });

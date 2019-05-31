@@ -12,6 +12,7 @@ const user = require("./routes/api/users");
 const zone = require("./routes/api/zones");
 const profile = require("./routes/api/profile");
 const job = require("./routes/api/jobs");
+const order = require("./routes/api/orders")
 
 
 
@@ -52,6 +53,7 @@ app.use("/api/users/", user);
 app.use("/api/zones/", zone);
 app.use("/api/profiles/", profile);
 app.use("/api/create-job/", job);
+app.use("/api/order/", order);
 
 
 //=================================

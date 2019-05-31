@@ -11,6 +11,8 @@ const path = require('path');
 //=================================
 
 const Job = require('../../models/jobs');
+const Profile = require('../../models/profile');
+const Order = require('../../models/orders');
 
 
 //=================================
@@ -36,22 +38,15 @@ const storage = multer.diskStorage({
   }
 });
 
-// const storage = multer.diskStorage({
-//   destination: './public/uploads/',
-//   filename: function(req, file, cb){
-//     cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//   }
-// });
-
-// SET DOCUMENT EXT TYPE
-
 const fileFilter = (req, file, cb) => {
   // reject a file
-  if (file.mimetype === 'doc/pdf') {
-    cb(null, true);
-  } else {
-    cb(null, false);
+  var ext = path.extname(file.originalname);
+  if(ext !== '.pdf') {
+      return cb(new Error('Only PDF(s) are allowed'))
   }
+  
+  cb(null, true);
+
 };
 
 // SET DOCUMENT SIZE
@@ -65,28 +60,42 @@ const upload = multer({
 
 
 router.post("/", passport.authenticate('client', { session: false }), upload.single('job_document'), (req, res, next) => {
- 
-  const job = new Job({
-    category: req.body.category,
-    price: req.body.price,
-    instructions: req.body.instructions,
-    job_document: req.file.path,
-    user:req.body.user,
-    deliveryzone:req.body.deliveryzone
-  });
 
-  job
-    .save()
-    .then(result => {
-      console.log(result);
-      return res.json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+  Profile.findOne({ client: req.user.id }).then(profile => {
+    if (profile) {
+        // Create Job
+        const job = new Job({
+          category: req.body.category,
+          price: req.body.price,
+          instructions: req.body.instructions,
+          job_document: req.file.path,
+          deliveryzone:profile.deliveryzone
+        });
+      
+        job
+          .save()
+          .then(result => {
+            
+            if(result){
+              const newOrder = new Order({
+                job_id: result._id,
+                profile_id: profile._id
+              });
+
+              newOrder.save().then(order=>res.json(order));
+            }
+            
+
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({
+              error: err
+            });
+          });
+
+    }
+  });
 });
 
 
