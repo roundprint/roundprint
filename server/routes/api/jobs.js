@@ -55,7 +55,7 @@ const upload = multer({
 });
 
 
-router.post("/", upload.single('job_document'), (req, res, next) => {
+router.post("/", passport.authenticate('client', { session: false }), upload.single('job_document'), (req, res, next) => {
   const job = new Job({
     category: req.body.category,
     price: req.body.price,
@@ -64,23 +64,12 @@ router.post("/", upload.single('job_document'), (req, res, next) => {
     user:req.body.user,
     deliveryzone:req.body.deliveryzone
   });
+
   job
     .save()
     .then(result => {
       console.log(result);
-      res.status(201).json({
-        message: "You have submited your doc for a print",
-        createdJob: {
-          category: req.body.category,
-          price: req.body.price,
-          instructions: req.body.instructions,
-          job_document: req.file.path,
-          user:req.body.user,
-          deliveryzone:req.body.deliveryzone,
-          timestamp: new Date().getTime(),
-          
-        }
-      });
+      return res.json(result);
     })
     .catch(err => {
       console.log(err);
