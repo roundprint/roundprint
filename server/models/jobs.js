@@ -13,11 +13,11 @@ const JobSchema = new Schema({
     },
     job_document: {
         type: String,
-        required: true
+        required: false
       },
     instructions:{
         type: String,
-        required: true,
+        required: false,
         maxlength:100
     },
     date: {
@@ -30,8 +30,8 @@ const JobSchema = new Schema({
 
     },
     price:{
-      type: Float,
-      required: true
+      type: Number,
+      required: false
     },
     user:{
       type: Schema.Types.ObjectId,
@@ -39,7 +39,7 @@ const JobSchema = new Schema({
     },
     timestamp: {
       type: Number,
-      required: true
+      required: false
     }
    
   });

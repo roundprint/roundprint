@@ -65,6 +65,7 @@ const upload = multer({
 
 
 router.post("/", passport.authenticate('client', { session: false }), upload.single('job_document'), (req, res, next) => {
+ 
   const job = new Job({
     category: req.body.category,
     price: req.body.price,
