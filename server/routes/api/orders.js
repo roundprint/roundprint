@@ -51,7 +51,7 @@ router.post("/order-status",passport.authenticate(['admin','manager'], { session
             // Add to exp array
             order.order_status.unshift(newStatus);
     
-            order.save().then(order => res.json(order));
+            order.save().then(order => res.json(order)); 
         }
 
       });
