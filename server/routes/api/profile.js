@@ -170,7 +170,6 @@ router.post("/add-edit-academic",passport.authenticate('client', { session: fals
             //     year: req.body.year,
             //     semester: req.body.semester
             // };
-            
             // let newAcaPro = profile.academic.unshift(newAca);
 
             profile.academic[0].program = req.body.program;
@@ -200,7 +199,5 @@ router.post("/add-edit-academic",passport.authenticate('client', { session: fals
 
       });
 });
-
-
 
 module.exports = router;

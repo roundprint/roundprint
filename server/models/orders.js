@@ -8,12 +8,12 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
 
     jobID:{
-        type: Schema.Types.ObjectId,
-        ref: 'jobs'
+        type: String,
+        required: true
     },
     status: {
         type: String,
-        required: true
+        required: false
       }
    
   });
