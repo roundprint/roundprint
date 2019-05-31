@@ -7,9 +7,13 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
 
-    jobID:{
-        type: String,
-        required: true
+    job_id:{
+        type: Schema.Types.ObjectId,
+        ref: 'jobs'
+    },
+    profile_id:{
+        type: Schema.Types.ObjectId,
+        ref: 'profile'
     },
     status: {
         type: String,

@@ -20,26 +20,18 @@ const JobSchema = new Schema({
         required: true,
         maxlength:100
     },
-    date: {
-      type: Date,
-      default: Date.now
-    },
     deliveryzone:{
-        type: Schema.Types.ObjectId,
-        ref: "zones"
+        type: Object,
+        required:true
 
     },
     price:{
       type: Number,
       required: true
     },
-    user:{
-      type: Schema.Types.ObjectId,
-      ref: "profile"
-    },
     timestamp: {
-      type: Number,
-      required: true
+      type: Date,
+      default: Date.now
     }
    
   });
