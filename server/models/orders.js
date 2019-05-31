@@ -15,10 +15,18 @@ const OrderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'profile'
     },
-    status: {
-        type: String,
-        required: false
-      }
+    order_status: [
+        {
+            status: {
+            type: String,
+            required: true
+            },
+            date:{
+            type: Date,
+            default: Date.now
+            }
+        }
+      ],
    
   });
   

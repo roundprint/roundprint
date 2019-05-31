@@ -27,4 +27,35 @@ router.get("/all", passport.authenticate(['admin','manager'], { session: false }
       .catch(err => res.status(404).json({ order: "There are no orders" }));
   });
 
+router.post("/order-status",passport.authenticate(['admin','manager'], { session: false }), (req, res) => {
+
+    Order.findOne({ job_id: req.body.job_id }).then(order => {
+
+        if (order.order_status.length>0) {
+
+            order.order_status[0].status = req.body.status;
+
+            // Update
+            Order.findOneAndUpdate(
+                { client: req.user.id },
+                { $set:order },
+                { new: true }
+            ).then(order => res.json(order));
+
+        }else{
+
+            const newStatus = {
+                status: req.body.status
+                };
+    
+            // Add to exp array
+            order.order_status.unshift(newStatus);
+    
+            order.save().then(order => res.json(order));
+        }
+
+      });
+    });
+
+
   module.exports = router;
