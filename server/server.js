@@ -51,7 +51,7 @@ require("./middleware/passport")(passport);
 app.use("/api/users/", user);
 app.use("/api/zones/", zone);
 app.use("/api/profiles/", profile);
-app.use("/api/job/", job);
+app.use("/api/create-job/", job);
 
 
 //=================================
