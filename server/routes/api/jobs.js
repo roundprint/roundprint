@@ -36,15 +36,6 @@ const storage = multer.diskStorage({
   }
 });
 
-// const storage = multer.diskStorage({
-//   destination: './public/uploads/',
-//   filename: function(req, file, cb){
-//     cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//   }
-// });
-
-// SET DOCUMENT EXT TYPE
-
 const fileFilter = (req, file, cb) => {
   // reject a file
   if (file.mimetype === 'doc/pdf') {

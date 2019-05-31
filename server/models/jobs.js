@@ -35,7 +35,7 @@ const JobSchema = new Schema({
     },
     user:{
       type: Schema.Types.ObjectId,
-      ref: "users"
+      ref: "profile"
     },
     timestamp: {
       type: Number,
