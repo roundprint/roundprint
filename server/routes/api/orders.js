@@ -29,7 +29,7 @@ router.get("/all", passport.authenticate(['admin','manager'], { session: false }
 
 router.post("/order-status",passport.authenticate(['admin','manager'], { session: false }), (req, res) => {
 
-    Order.findOne({ job_id: req.body.job_id }).then(order => {
+    Order.findOne({ _id: req.body.order_id }).then(order => {
 
         if (order.order_status.length>0) {
 
@@ -37,7 +37,7 @@ router.post("/order-status",passport.authenticate(['admin','manager'], { session
 
             // Update
             Order.findOneAndUpdate(
-                { client: req.user.id },
+                { _id: req.body.order_id },
                 { $set:order },
                 { new: true }
             ).then(order => res.json(order));
