@@ -30,7 +30,7 @@ const JobSchema = new Schema({
 
     },
     price:{
-      type: Float,
+      type: Number,
       required: true
     },
     user:{
