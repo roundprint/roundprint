@@ -35,27 +35,24 @@ router.post("/order-status",passport.authenticate(['admin','manager'], { session
 
             order.order_status[0].status = req.body.status;
 
-            // Update
+            // Update Order Status
             Order.findOneAndUpdate(
                 { _id: req.body.order_id },
                 { $set:order },
                 { new: true }
             ).then(order => res.json(order));
 
-        }else{
-
-            const newStatus = {
-                status: req.body.status
-                };
-    
-            // Add to exp array
-            order.order_status.unshift(newStatus);
-    
-            order.save().then(order => res.json(order)); 
         }
 
       });
     });
+
+router.get("/order-status",passport.authenticate(['admin','manager','client'], { session: false }), (req, res) => {
+
+    Order.findOne({ _id: req.body.order_id }).then(order => {
+        res.json(order)
+    });
+});
 
 
   module.exports = router;

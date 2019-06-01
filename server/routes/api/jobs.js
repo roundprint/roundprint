@@ -64,12 +64,16 @@ router.post("/", passport.authenticate('client', { session: false }), upload.sin
   Profile.findOne({ client: req.user.id }).then(profile => {
     if (profile) {
         // Create Job
+        let zone = (req.body.zone)? req.body.zone:profile.deliveryzone;
+
         const job = new Job({
+
           category: req.body.category,
           price: req.body.price,
           instructions: req.body.instructions,
           job_document: req.file.path,
-          deliveryzone:profile.deliveryzone
+          deliveryzone:zone
+          
         });
       
         job

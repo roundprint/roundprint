@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-///////////////////////////////////////
-//          ORDER SCHEMA             //
-/////////////////////////////////////
+//=================================
+//           ORDER SCHEMA
+//=================================
 
 const OrderSchema = new Schema({
 
@@ -18,12 +18,13 @@ const OrderSchema = new Schema({
     order_status: [
         {
             status: {
-            type: String,
-            required: true
+                type: String,
+                default:"Submitted",//Received,Completed
+                required: true
             },
             date:{
-            type: Date,
-            default: Date.now
+                type: Date,
+                default: Date.now
             }
         }
       ],

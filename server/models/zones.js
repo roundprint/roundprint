@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-///////////////////////////////////////
-//          ZONE SCHEMA             //
-/////////////////////////////////////
+//=================================
+//           ZONE SCHEMA
+//=================================
 
 const ZoneSchema = new Schema({
   name: {
