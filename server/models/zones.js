@@ -11,7 +11,10 @@ const ZoneSchema = new Schema({
     type: String,
     required: true
   },
-  deliverytime:{
+  deliverytime: {
+    type: [String]
+  },
+  default_deliverytime: {
     type: String,
     default: "08:00"
   },

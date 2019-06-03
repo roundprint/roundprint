@@ -42,17 +42,28 @@ router.post("/order-status",passport.authenticate(['admin','manager'], { session
                 { new: true }
             ).then(order => res.json(order));
 
+        }else{
+
+            const newStatus = {
+                status: req.body.status
+                };
+    
+            // Add to exp array
+            order.order_status.unshift(newStatus);
+    
+            order.save().then(order => res.json(order)); 
         }
 
       });
     });
 
-router.get("/order-status",passport.authenticate(['admin','manager','client'], { session: false }), (req, res) => {
 
-    Order.findOne({ _id: req.body.order_id }).then(order => {
-        res.json(order)
-    });
-});
+    router.get("/order-status",passport.authenticate(['admin','manager','client'], { session: false }), (req, res) => {
+
+      Order.findOne({ _id: req.body.order_id }).then(order => {
+        res.json(order.order_status);
+      });
+  });
 
 
   module.exports = router;

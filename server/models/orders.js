@@ -18,8 +18,7 @@ const OrderSchema = new Schema({
     order_status: [
         {
             status: {
-                type: String,
-                default:"Submitted",//Received,Completed
+                type: String,//Received,Completed
                 required: true
             },
             date:{

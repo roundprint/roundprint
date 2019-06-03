@@ -73,7 +73,7 @@ router.post("/", passport.authenticate('client', { session: false }), upload.sin
           instructions: req.body.instructions,
           job_document: req.file.path,
           deliveryzone:zone
-          
+
         });
       
         job
@@ -86,7 +86,7 @@ router.post("/", passport.authenticate('client', { session: false }), upload.sin
                 profile_id: profile._id
               });
 
-              newOrder.save().then(order=>res.json(order));
+              newOrder.save().then(order=>res.json({order,message:"Job Submitted"}));
             }
             
 
