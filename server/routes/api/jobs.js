@@ -64,12 +64,16 @@ router.post("/", passport.authenticate('client', { session: false }), upload.sin
   Profile.findOne({ client: req.user.id }).then(profile => {
     if (profile) {
         // Create Job
+        let zone = (req.body.zone)? req.body.zone:profile.deliveryzone;
+
         const job = new Job({
+
           category: req.body.category,
           price: req.body.price,
           instructions: req.body.instructions,
           job_document: req.file.path,
-          deliveryzone:profile.deliveryzone
+          deliveryzone:zone
+
         });
       
         job
@@ -82,7 +86,7 @@ router.post("/", passport.authenticate('client', { session: false }), upload.sin
                 profile_id: profile._id
               });
 
-              newOrder.save().then(order=>res.json(order));
+              newOrder.save().then(order=>res.json({order,message:"Job Submitted"}));
             }
             
 

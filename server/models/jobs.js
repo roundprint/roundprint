@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-///////////////////////////////////////
-//          JOB SCHEMA             //
-/////////////////////////////////////
+//=================================
+//           JOB SCHEMA
+//=================================
 
 const JobSchema = new Schema({
 

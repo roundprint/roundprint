@@ -15,10 +15,6 @@ module.exports = function validateZoneInput(data) {
     errors.name = "Zone name field is required";
   }
 
-  if (Validator.isEmpty(data.deliverytime)) {
-    errors.deliverytime = "Delivery time field is required";
-  }
-
   return {
     errors,
     isValid: isEmpty(errors)

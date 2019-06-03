@@ -2,16 +2,19 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-///////////////////////////////////////
-//          ZONE SCHEMA             //
-/////////////////////////////////////
+//=================================
+//           ZONE SCHEMA
+//=================================
 
 const ZoneSchema = new Schema({
   name: {
     type: String,
     required: true
   },
-  deliverytime:{
+  deliverytime: {
+    type: [String]
+  },
+  default_deliverytime: {
     type: String,
     default: "08:00"
   },

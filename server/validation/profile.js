@@ -14,9 +14,6 @@ module.exports = function validateProfileInput(data) {
   if (Validator.isEmpty(data.zonename)) {
     errors.zonename = "Zone name field is required";
   }
-  if (Validator.isEmpty(data.zonename)) {
-    errors.zonename = "Zone time field is required";
-  }
 
 
   return {

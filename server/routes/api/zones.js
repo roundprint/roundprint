@@ -32,29 +32,43 @@ router.post("/create-edit",passport.authenticate('admin', { session: false }), (
       return res.status(400).json(errors);
   }
 
-  // Get fields
-  const zoneFields = {};
-  zoneFields.name =  req.body.name;
-  zoneFields.deliverytime =  req.body.deliverytime;
-
   Zone.findOne({ name:req.body.name }).then(zone => {
 
       if (zone) {
-          // Update
+
+          // Get fields
+          const zoneFields = {};
+          zoneFields.name =  req.body.name;
+          zoneFields.deliverytime =  req.body.deliverytime;
+
+          // Update Zone Details
           Zone.findOneAndUpdate(
               { _id: zone._id },
               { $set:zoneFields },
               { new: true }
-          ).then(zone => res.json(zone));
+          ).then(zone => {
+
+              let deliverytime = [zone.default_deliverytime,...zone.deliverytime];
+
+              res.json({
+                name:zone.name,
+                delivery_time: deliverytime
+              })
+          
+          });
 
       }else{
-          
-          const newZone = new Zone(zoneFields)
-
-          newZone
-          .save()
-          .then(zone => res.json(zone))
-          .catch(err => console.log(err));
+        new Zone(req.body).save().then(zone => {
+          if(zone.deliverytime[0] === ""){
+            let deliverytime = [zone.default_deliverytime];
+            res.json({
+              name:zone.name,
+              delivery_time: deliverytime
+            })
+          }
+          res.json(zone)
+        
+        });
       }
   }).catch(err => res.status(404).json(err));
 });

@@ -114,7 +114,7 @@ router.delete(
             
             profileFields.deliveryzone = {};
             profileFields.deliveryzone.name = zone.name;
-            profileFields.deliveryzone.time = zone.deliverytime;
+            profileFields.deliveryzone.time = zone.deliverytime?zone.deliverytime:zone.default_deliverytime;
 
             Profile.findOne({ client: req.user.id }).then(profile => {
                 if (profile) {
