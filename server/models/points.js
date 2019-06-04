@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 const PointsSchema = new Schema({ 
 points:{
     type: Number,
-    required:false
+    required:false,
 },
 order_id:{
     type: Schema.Types.ObjectId,

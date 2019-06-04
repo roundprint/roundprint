@@ -19,6 +19,9 @@ const Order = require('../../models/orders');
 //            VALIDATIONS
 //=================================
 
+const validateJobInput = require("../../validation/job");
+const isEmpty = require("../../validation/is-empty");
+
 
 
 //=================================
@@ -60,7 +63,14 @@ const upload = multer({
 
 
 router.post("/", passport.authenticate('client', { session: false }), upload.single('job_document'), (req, res, next) => {
-
+  
+  const { errors, isValid } = validateJobInput(req.body);
+  
+  // Check Validation
+  if (!isValid) {
+    // Return any errors with 400 status
+    return res.status(400).json(errors);
+  }
   Profile.findOne({ client: req.user.id }).then(profile => {
     if (profile) {
         // Create Job
@@ -89,7 +99,6 @@ router.post("/", passport.authenticate('client', { session: false }), upload.sin
               newOrder.save().then(order=>res.json({order,message:"Job Submitted"}));
             }
             
-
           })
           .catch(err => {
             console.log(err);

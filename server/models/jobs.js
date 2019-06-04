@@ -17,7 +17,6 @@ const JobSchema = new Schema({
       },
     instructions:{
         type: String,
-        required: true,
         maxlength:100
     },
     deliveryzone:{
