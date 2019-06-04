@@ -25,7 +25,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 mongoose
-  .connect(process.env.DATABASE)
+  .connect(process.env.MONGODB_URL)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
@@ -35,6 +35,13 @@ mongoose
 //=================================
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+//=================================
+//         SERVE UP STATIC ASSEST
+//=================================
+if(process.env.MODE_ENV === 'production'){
+  app.use(express.static("client/build"));
+}
 
 
 //=================================

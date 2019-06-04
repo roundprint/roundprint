@@ -143,16 +143,6 @@ router.post("/add-edit-academic",passport.authenticate('client', { session: fals
 
         if (profile.academic.length>0) {
 
-<<<<<<< HEAD
-=======
-            // const newAca = {
-            //     program: req.body.program,
-            //     year: req.body.year,
-            //     semester: req.body.semester
-            // };
-            // let newAcaPro = profile.academic.unshift(newAca);
-
->>>>>>> 0d20e12760be30ef2497afdec2f4bf834223b055
             profile.academic[0].program = req.body.program;
             profile.academic[0].year = req.body.year;
             profile.academic[0].semester = req.body.semester;
