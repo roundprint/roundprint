@@ -64,28 +64,6 @@ router.get(
       .catch(err => res.status(404).json({ profile: "There are no profiles" }));
   });
 
-
-//=================================
-//             DELETE USER(s)
-//=================================
-
-router.delete(
-    "/remove-client/:id",
-    passport.authenticate(['client'], { session: false }),
-    (req, res) => {
-      Profile.findOneAndRemove({ user: req.user.id }).then(() => {
-        User.findOneAndRemove({ _id: req.user.id, role:'client'}).then((client) =>
-          {
-            if(!isEmpty(client) && client.role === 'client'){
-                res.json({ success: true });
-            }else{
-              return res.status(401).json({success: false, error: 'This is not a client'})
-            }
-          }
-        ).catch(err=>res.status(404).json({success:false,error:'There is no such a client'}));
-      });
-    }
-  );
   
 //=================================
 // CREATE OR EDIT CLIENT PROFILE
@@ -165,19 +143,11 @@ router.post("/add-edit-academic",passport.authenticate('client', { session: fals
 
         if (profile.academic.length>0) {
 
-            // const newAca = {
-            //     program: req.body.program,
-            //     year: req.body.year,
-            //     semester: req.body.semester
-            // };
-            
-            // let newAcaPro = profile.academic.unshift(newAca);
-
             profile.academic[0].program = req.body.program;
             profile.academic[0].year = req.body.year;
             profile.academic[0].semester = req.body.semester;
 
-            // Update
+            // Update Profile
             Profile.findOneAndUpdate(
                 { client: req.user.id },
                 { $set:profile },
