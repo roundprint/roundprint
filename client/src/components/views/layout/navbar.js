@@ -15,22 +15,17 @@ class Navbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
 
     const authLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link className="nav-link" to="/feed">
-            Post Feed
+      <div className="right menu">
+          <Link className="ui item" to="/feed">
+            Profile
           </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/dashboard">
+          <Link className="ui item" to="/dashboard">
             Dashboard
           </Link>
-        </li>
-        <li className="nav-item">
           <a
             href=""
             onClick={this.onLogoutClick.bind(this)}
-            className="nav-link"
+            className="ui item"
           >
             <img
               className="rounded-circle"
@@ -41,29 +36,26 @@ class Navbar extends Component {
             />{' '}
             Logout
           </a>
-        </li>
-      </ul>
+      </div>
     );
 
     const guestLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link className="nav-link" to="/register">
-            Sign Up
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/login">
+      <div class="right menu">
+          <Link className="ui item" to="/login">
             Login
           </Link>
-        </li>
-      </ul>
+        </div>
     );
 
     return (
-      <div className="navbar">
-        <div className="ui container">
-        </div>
+      <div class="ui secondary menu">
+        {isAuthenticated ? <Link className="item" to="/dashboard">
+              ROUNDPRINT
+        </Link> : <Link className="item" to="/login">
+              ROUNDPRINT
+        </Link>}
+        
+          {isAuthenticated ? authLinks : guestLinks}
       </div>
     );
   }

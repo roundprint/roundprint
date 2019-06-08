@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter,Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../../actions/authActions';
 import TextFieldGroup from '../common/text.field.group';
@@ -55,15 +55,12 @@ class Register extends Component {
 
     return (
       <div className="register">
-        <div className="ui container">
-          <div className="row">
-            <div className="ui centered">
-              <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">
-                Create your iSHEQ account
-              </p>
-              <form noValidate onSubmit={this.onSubmit}>
-                <TextFieldGroup
+      <h1 className="ui header center aligned">Sign Up</h1>
+      <h4 className="ui header center aligned">
+        Create your ROUNDPRINT account
+      </h4>
+    <form className="ui form">
+    <TextFieldGroup
                   placeholder="Name"
                   name="name"
                   value={this.state.name}
@@ -95,13 +92,14 @@ class Register extends Component {
                   onChange={this.onChange}
                   error={errors.password2}
                 />
-                <button className="ui large primary button" type="submit">
-                    Register
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
+        <button className="ui fluid large primary button" type="submit">
+            Register
+        </button>
+      </form>
+      <hr/>
+      <div className="">
+        <p>Already have an account?<span className="ui button"><Link to="/login">Login</Link></span></p>
+      </div>
       </div>
     );
   }

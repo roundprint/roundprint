@@ -10,7 +10,7 @@ import store from '../store';
 import PrivateRoute from './views/common/private.route';
 
 import Navbar from './views/layout/navbar';
-import Home from './views/layout/home';
+import Landing from './views/layout/landing';
 import Register from './views/auth/register';
 import Login from './views/auth/login';
 import Dashboard from './views/dashboard/dashboard';
@@ -42,16 +42,20 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
-            <Navbar />
-            <Route exact path="/" component={Home} />
-            <div className="container">
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Switch>
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              </Switch>
-              <Route exact path="/not-found" component={NotFound} />
+          <div className="ui grid">
+            <div class="eight wide column">
+              <Landing />
+            </div>
+            <div class="eight wide column">
+              <Navbar />
+              <div className="container">
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+                <Switch>
+                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                </Switch>
+                <Route exact path="/not-found" component={NotFound} />
+              </div>
             </div>
           </div>
         </Router>

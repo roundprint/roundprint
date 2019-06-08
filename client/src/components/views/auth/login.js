@@ -57,7 +57,7 @@ class Login extends Component {
       <div className="login">
         <h1 className="ui header center aligned">Log In</h1>
         <h4 className="ui header center aligned">
-          Sign in to your iSHEQ account
+          Sign in to your ROUNDPRINT account
         </h4>
       <form className="ui form">
         <TextFieldGroup
