@@ -16,14 +16,14 @@ class Navbar extends Component {
 
     const authLinks = (
       <div className="right menu">
-          <Link className="ui item" to="/create-job">
-            Create Job
-          </Link>
           <Link className="ui item" to="/profile">
             Profile
           </Link>
           <Link className="ui item" to="/dashboard">
             Dashboard
+          </Link>
+          <Link className="ui item" to="/job">
+            Create Job
           </Link>
           <a
             href=""
