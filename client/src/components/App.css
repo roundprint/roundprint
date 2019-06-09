@@ -1,10 +1,16 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: grayscale;
+  width: 100%;
 }
 
 .ui .secondary .menu{
   height: 10vh;
+}
+
+.ui.grid > .column:not(.row) {
+  padding-top: 1rem;
+  padding-bottom: 0;
 }
 
 img {
@@ -17,13 +23,8 @@ img {
   background-size: cover;
   background-position: center;
   height: 100vh;
-  /* margin-top: -5px; */
-  /* margin-bottom: -50px; */
 }
 
-.landing-inner {
-  padding-top: 80px;
-}
 
 
 .card-form {

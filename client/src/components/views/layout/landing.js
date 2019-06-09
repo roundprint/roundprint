@@ -14,15 +14,7 @@ class Landing extends Component {
   render() {
     return (
       <div className="landing">
-        <div className="dark-overlay landing-inner">
-          <div className="ui text container">
-          <div class="ui grid">
-            <div class="eight wide column">
-            </div>
           </div>
-          </div>
-          </div>
-        </div>
     );
   }
 }

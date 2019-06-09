@@ -43,10 +43,10 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="ui grid">
-            <div class="eight wide column">
+            <div className="eight wide column">
               <Landing />
             </div>
-            <div class="eight wide column">
+            <div className="eight wide column">
               <Navbar />
               <div className="container">
                 <Route exact path="/register" component={Register} />
