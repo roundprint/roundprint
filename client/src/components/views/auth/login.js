@@ -42,6 +42,8 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
+    
+    console.log(userData)
 
     this.props.loginUser(userData);
   }
@@ -59,7 +61,7 @@ class Login extends Component {
         <h4 className="ui header center aligned">
           Sign in to your ROUNDPRINT account
         </h4>
-      <form className="ui form">
+      <form className="ui form" onSubmit={this.onSubmit}>
         <TextFieldGroup
               placeholder="Email Address"
               name="email"

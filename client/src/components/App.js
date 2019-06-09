@@ -14,6 +14,7 @@ import Landing from './views/layout/landing';
 import Register from './views/auth/register';
 import Login from './views/auth/login';
 import Dashboard from './views/dashboard/dashboard';
+import Job from './views/job/job';
 import NotFound from './views/not-found/not.found';
 
 import './App.css';
@@ -53,6 +54,9 @@ class App extends Component {
                 <Route exact path="/login" component={Login} />
                 <Switch>
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/create-job" component={Job} />
                 </Switch>
                 <Route exact path="/not-found" component={NotFound} />
               </div>

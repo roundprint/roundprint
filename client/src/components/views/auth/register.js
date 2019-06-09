@@ -11,6 +11,8 @@ class Register extends Component {
     super();
     this.state = {
       name: '',
+      lastname: '',
+      phonenumber: '',
       email: '',
       password: '',
       password2: '',
@@ -42,6 +44,8 @@ class Register extends Component {
 
     const newUser = {
       name: this.state.name,
+      lastname: this.state.lastname,
+      phonenumber: this.state.phonenumber,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
@@ -59,13 +63,20 @@ class Register extends Component {
       <h4 className="ui header center aligned">
         Create your ROUNDPRINT account
       </h4>
-    <form className="ui form">
+    <form className="ui form" onSubmit={this.onSubmit}>
     <TextFieldGroup
-                  placeholder="Name"
+                  placeholder="First Name"
                   name="name"
                   value={this.state.name}
                   onChange={this.onChange}
                   error={errors.name}
+                />
+    <TextFieldGroup
+                  placeholder="Last Name"
+                  name="lastname"
+                  value={this.state.lastname}
+                  onChange={this.onChange}
+                  error={errors.lastname}
                 />
                 <TextFieldGroup
                   placeholder="Email"
@@ -75,6 +86,14 @@ class Register extends Component {
                   onChange={this.onChange}
                   error={errors.email}
                   info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
+                />
+                <TextFieldGroup
+                  placeholder="Phone Number"
+                  name="phonenumber"
+                  type="text"
+                  value={this.state.phonenumber}
+                  onChange={this.onChange}
+                  error={errors.phonenumber}
                 />
                 <InputGroup
                   placeholder="Password"
