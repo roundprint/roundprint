@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser } from '../../../actions/authActions';
+import { loginUser } from '../../../actions/auth.actions';
 import InputGroup from '../common/input.group';
 import TextFieldGroup from '../common/text.field.group';
 
@@ -43,8 +43,6 @@ class Login extends Component {
       password: this.state.password
     };
     
-    console.log(userData)
-
     this.props.loginUser(userData);
   }
 

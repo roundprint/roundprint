@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter,Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registerUser } from '../../../actions/authActions';
+import { registerUser } from '../../../actions/auth.actions';
 import TextFieldGroup from '../common/text.field.group';
 import InputGroup from '../common/input.group';
 
@@ -117,7 +117,7 @@ class Register extends Component {
       </form>
       <hr/>
       <div className="">
-        <p>Already have an account?<span className="ui button"><Link to="/login">Login</Link></span></p>
+        <p>Already have an account?<span className="ui button"><Link to="/">Login</Link></span></p>
       </div>
       </div>
     );

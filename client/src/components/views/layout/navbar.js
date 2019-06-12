@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { logoutUser } from '../../../actions/authActions';
+import { logoutUser } from '../../../actions/auth.actions';
 
 class Navbar extends Component {
   onLogoutClick(e) {
@@ -36,18 +36,18 @@ class Navbar extends Component {
     );
 
     const guestLinks = (
-      <div class="right menu">
-          <Link className="ui item" to="/login">
+      <div className="right menu">
+          <Link className="ui item" to="/">
             Login
           </Link>
         </div>
     );
 
     return (
-      <div class="ui secondary menu">
+      <div className="ui secondary menu">
         {isAuthenticated ? <Link className="item" to="/dashboard">
               ROUNDPRINT
-        </Link> : <Link className="item" to="/login">
+        </Link> : <Link className="item" to="/">
               ROUNDPRINT
         </Link>}
         

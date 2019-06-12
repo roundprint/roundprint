@@ -25,7 +25,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_URI || process.env.mongodb_uri)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 

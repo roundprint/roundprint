@@ -115,7 +115,7 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, client.password).then(isMatch => {
       if (isMatch) {
         //User Matched
-        const payload = { id: client.id, name: client.name }; // Create JWT Payload
+        const payload = { id: client.id, name: client.name,lastname: client.lastname,email: client.email }; // Create JWT Payload
         //Sign Token
         jwt.sign(
           payload,

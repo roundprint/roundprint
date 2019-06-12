@@ -11,6 +11,7 @@ require('dotenv').config();
 
 const Profile = require("../../models/profile");
 const Zone = require("../../models/zones");
+const User = require("../../models/users");
 
 //=================================
 //            VALIDATIONS
@@ -92,7 +93,7 @@ router.get(
             
             profileFields.deliveryzone = {};
             profileFields.deliveryzone.name = zone.name;
-            profileFields.deliveryzone.time = zone.deliverytime?zone.deliverytime:zone.default_deliverytime;
+            profileFields.deliveryzone.time = zone.deliverytime?zone.deliverytime[0]:zone.default_deliverytime;
 
             Profile.findOne({ client: req.user.id }).then(profile => {
                 if (profile) {
@@ -101,7 +102,16 @@ router.get(
                         { client: req.user.id },
                         { $set: profileFields },
                         { new: true }
-                    ).then(profile => res.json(profile));
+                    ).then(profile => {
+                      
+                      const userFields = {};
+                      if (req.body.email) userFields.email = req.body.email;
+                      User.findByIdAndUpdate(
+                        { _id: req.user.id },
+                        { $set: userFields},
+                        { new: true}
+                      ).then(user=>res.json(user));
+                    });
         
                 } else {
                   // Create

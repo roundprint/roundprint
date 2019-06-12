@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../axios/set.auth.token';
-import { setCurrentUser, logoutUser } from '../actions/authActions';
+import { setCurrentUser, logoutUser } from '../actions/auth.actions';
 
 import { Provider } from 'react-redux';
 import store from '../store';
@@ -16,6 +16,7 @@ import Login from './views/auth/login';
 import Dashboard from './views/dashboard/dashboard';
 import Job from './views/job/job';
 import Profile from './views/profile/profile';
+import CreateProfile from './views/profile/create.profile'
 
 import NotFound from './views/not-found/not.found';
 
@@ -36,7 +37,7 @@ if (localStorage.jwtToken) {
     // Logout user
     store.dispatch(logoutUser());
     // Redirect to login
-    window.location.href = '/login';
+    window.location.href = '/';
   }
 }
 
@@ -51,9 +52,9 @@ class App extends Component {
             </div>
             <div className="eight wide column">
               <Navbar />
-              <div className="container">
+              <div className="ui container">
                 <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
+                <Route exact path="/" component={Login} />
                 <Switch>
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 </Switch>
@@ -62,6 +63,9 @@ class App extends Component {
                 </Switch>
                 <Switch>
                   <PrivateRoute exact path="/profile" component={Profile} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/create-profile" component={CreateProfile} />
                 </Switch>
                 <Route exact path="/not-found" component={NotFound} />
               </div>
