@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "proxy": "http://localhost:3000",
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server/server.js",

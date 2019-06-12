@@ -39,7 +39,6 @@ router.post("/create-edit",passport.authenticate('admin', { session: false }), (
           // Get fields
           const zoneFields = {};
           zoneFields.name =  req.body.name;
-          zoneFields.deliverytime =  req.body.deliverytime;
 
           // Update Zone Details
           Zone.findOneAndUpdate(
@@ -48,24 +47,12 @@ router.post("/create-edit",passport.authenticate('admin', { session: false }), (
               { new: true }
           ).then(zone => {
 
-              let deliverytime = [zone.default_deliverytime,...zone.deliverytime];
-
-              res.json({
-                name:zone.name,
-                delivery_time: deliverytime
-              })
+              res.json(zone)
           
           });
 
       }else{
         new Zone(req.body).save().then(zone => {
-          if(zone.deliverytime[0] === ""){
-            let deliverytime = [zone.default_deliverytime];
-            res.json({
-              name:zone.name,
-              delivery_time: deliverytime
-            })
-          }
           res.json(zone)
         
         });
