@@ -66,7 +66,7 @@ app.use("/api/order/", order);
 //       APP LISTENING
 //=================================
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 106;
 
 app.listen(port,()=>{
     console.log(`Server is running at port ${port}`);

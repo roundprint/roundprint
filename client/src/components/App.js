@@ -10,9 +10,8 @@ import store from '../store';
 import PrivateRoute from './views/common/private.route';
 
 import Navbar from './views/layout/navbar';
-import Landing from './views/layout/landing';
-import Register from './views/auth/register';
-import Login from './views/auth/login';
+import Register from './views/auth/register/register';
+import Login from './views/auth/login/login';
 import Dashboard from './views/dashboard/dashboard';
 import Job from './views/job/job';
 import Profile from './views/profile/profile';
@@ -21,6 +20,7 @@ import CreateProfile from './views/profile/create.profile'
 import NotFound from './views/not-found/not.found';
 
 import './App.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -46,29 +46,24 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="ui grid">
-            <div className="eight wide column">
-              <Landing />
-            </div>
-            <div className="eight wide column">
+          <div>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/" component={Login} />
+            <div className="ui container">
               <Navbar />
-              <div className="ui container">
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/" component={Login} />
-                <Switch>
-                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                </Switch>
-                <Switch>
-                  <PrivateRoute exact path="/job" component={Job} />
-                </Switch>
-                <Switch>
-                  <PrivateRoute exact path="/profile" component={Profile} />
-                </Switch>
-                <Switch>
-                  <PrivateRoute exact path="/create-profile" component={CreateProfile} />
-                </Switch>
-                <Route exact path="/not-found" component={NotFound} />
-              </div>
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/job" component={Job} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/profile" component={Profile} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+              </Switch>
+              <Route exact path="/not-found" component={NotFound} />
             </div>
           </div>
         </Router>

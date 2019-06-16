@@ -36,23 +36,13 @@ class Navbar extends Component {
       </div>
     );
 
-    const guestLinks = (
-      <div className="right menu">
-          <Link className="ui item" to="/">
-            Login
-          </Link>
-        </div>
-    );
-
     return (
       <div className="ui secondary menu">
         {isAuthenticated ? <Link className="item" to="/dashboard">
               ROUNDPRINT
-        </Link> : <Link className="item" to="/">
-              ROUNDPRINT
-        </Link>}
+        </Link> : null}
         
-          {isAuthenticated ? authLinks : guestLinks}
+          {isAuthenticated ? authLinks : null}
       </div>
     );
   }

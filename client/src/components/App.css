@@ -8,6 +8,10 @@ body {
   height: 10vh;
 }
 
+.ui.menu{
+  min-height: 0;
+}
+
 .ui.grid > .column:not(.row) {
   padding-top: 1rem;
   padding-bottom: 0;
@@ -17,14 +21,28 @@ img {
   width: 100%;
 }
 
-.landing {
+.login-landing {
   position: relative;
   background: url('../img/showcase.jpg') no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
 }
-
+.register-landing {
+  position: relative;
+  background: url('../img/open-laptop.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+.login{
+  margin-top: 7em;
+  margin-right: 2em;
+}
+.register{
+  margin-top: 5em;
+  margin-right: 2em;
+}
 
 
 .card-form {

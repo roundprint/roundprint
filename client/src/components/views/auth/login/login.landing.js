@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {withRouter, Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import Login from '../auth/login';
 
 class Landing extends Component {
   componentDidMount() {
@@ -12,9 +11,14 @@ class Landing extends Component {
   }
 
   render() {
+    const { isAuthenticated } =this.props.auth;
+    
     return (
-      <div className="landing">
+        <div className="login-landing">
+          <div>
+            <h1 className="ui large header center aligned">ROUNDPRINT</h1>
           </div>
+        </div>
     );
   }
 }
