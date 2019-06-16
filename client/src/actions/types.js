@@ -6,3 +6,4 @@ export const PROFILE_LOADING = 'PROFILE_LOADING';
 export const CLEAR_CURRENT_PROFILE = 'CLEAR_CURRENT_PROFILE';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const GET_ZONES = 'GET_ZONES';
+export const GET_AUTH = 'GET_AUTH';

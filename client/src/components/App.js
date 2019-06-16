@@ -7,7 +7,7 @@ import { setCurrentUser, logoutUser } from '../actions/auth.actions';
 import { Provider } from 'react-redux';
 import store from '../store';
 
-import PrivateRoute from './views/common/private.route';
+import Auth from './views/common/private.route';
 
 import Navbar from './views/layout/navbar';
 import Register from './views/auth/register/register';
@@ -47,23 +47,23 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/" component={Login} />
+            <Route exact path="/client/register" component={Auth(Register,false)} />
+            <Route exact path="/" component={Auth(Login,false)} />
             <div className="ui container">
               <Navbar />
               <Switch>
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <Route path="/client/dashboard" exact component={Auth(Dashboard,true)} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/job" component={Job} />
+                <Route exact path="/client/job" component={Auth(Job,true)} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/profile" component={Profile} />
+                <Route exact path="/client/profile" component={Auth(Profile,true)} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+                <Route exact path="/client/create-profile" component={Auth(CreateProfile,true)} />
               </Switch>
-              <Route exact path="/not-found" component={NotFound} />
+              <Route exact path="/not-found" component={Auth(NotFound,null)} />
             </div>
           </div>
         </Router>

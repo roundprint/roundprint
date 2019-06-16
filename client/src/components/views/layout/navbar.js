@@ -8,8 +8,14 @@ import { clearCurrentProfile } from '../../../actions/profile.actions';
 class Navbar extends Component {
   onLogoutClick(e) {
     e.preventDefault();
+
+    const { isAuthenticated, user } = this.props.auth;
+    
     this.props.clearCurrentProfile();
     this.props.logoutUser();
+    if(!isAuthenticated){
+      this.props.history.push("/");
+    }
   }
 
   render() {
@@ -17,13 +23,13 @@ class Navbar extends Component {
 
     const authLinks = (
       <div className="right menu">
-          <Link className="ui item" to="/profile">
+          <Link className="ui item" to="/client/profile">
             Profile
           </Link>
-          <Link className="ui item" to="/dashboard">
+          <Link className="ui item" to="/client/dashboard">
             Dashboard
           </Link>
-          <Link className="ui item" to="/job">
+          <Link className="ui item" to="/client/job">
             Create Job
           </Link>
           <a
@@ -38,7 +44,7 @@ class Navbar extends Component {
 
     return (
       <div className="ui secondary menu">
-        {isAuthenticated ? <Link className="item" to="/dashboard">
+        {isAuthenticated ? <Link className="item" to="/client/dashboard">
               ROUNDPRINT
         </Link> : null}
         

@@ -9,7 +9,7 @@ class Profile extends Component {
 
     componentDidMount() {
         if(!this.props.getCurrentProfile()){
-            return <Redirect to="/dashboard" />
+            return <Redirect to="client/dashboard" />
         }
 
         this.props.getCurrentProfile();
@@ -18,8 +18,16 @@ class Profile extends Component {
     
     render() {
         
-        const { profile } = this.props.profile;
+        const { profile,loading } = this.props.profile;
         const { user } = this.props.auth;
+
+        if(loading){
+            return(
+                <div>
+                    Loading .....
+                </div>
+            )
+        }
 
         return (
             <div className="profile">
@@ -48,7 +56,7 @@ class Profile extends Component {
                     </div>
                     <div>
                         <button type="submit" className="ui animated button" tabIndex="0">
-                            <Link to="/create-profile">
+                            <Link to="client/create-profile">
                                 <div className="visible content">Edit Profile</div>
                                 <div className="hidden content">
                                     <i className="right arrow icon"/>
@@ -66,7 +74,7 @@ class Profile extends Component {
                                 <hr style={{borderTop: '3px solid #833fb2', width: '50%'}}/>
                                 <h3 style={{paddingTop: '1em'}}> You Don't Have Profile Yet !</h3>
                                 <button type="submit" className="ui animated button" tabIndex="0">
-                                    <Link to="/create-profile">
+                                    <Link to="client/create-profile">
                                         <div className="visible content">Create Profile</div>
                                         <div className="hidden content">
                                             <i className="right arrow icon"/>

@@ -11,7 +11,7 @@ import img2 from '../../../../img/open-laptop.jpg';
 class Landing extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('client/dashboard');
     }
   }
 
@@ -22,19 +22,25 @@ class Landing extends Component {
         <div className="register-landing">
           <div>
             <h1 className="ui large header center aligned">ROUNDPRINT</h1>
-            <Carousel showArrows={false} showStatus={false} showIndicators={false} showThumbs={false} autoPlay={true}>
+            <Carousel 
+              showArrows={false} 
+              showStatus={false} 
+              showIndicators={false} 
+              showThumbs={false} 
+              autoPlay={true} 
+              infiniteLoop={true}
+              interval={6000}>
               <div>
-                    <img src={img1} />
-                    <p className="legend">Legend 1</p>
-                </div>
-                <div>
-                    <img src={img2}/>
-                    <p className="legend">Legend 2</p>
-                </div>
-                <div>
-                    <img src={img1} />
-                    <p className="legend">Legend 3</p>
-                </div>
+                  <img src={img1} />
+              </div>
+              <div>
+                  <img src={img2}/>
+                  <p className="legend" style={{backgroundColor:"transparent",color:"#2185d0"}}>Yes Round Print The way</p>
+              </div>
+              <div>
+                  <img src={img1} />
+                  <p className="legend">Legend 3</p>
+              </div>
             </Carousel>
           </div>
         </div>

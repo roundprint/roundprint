@@ -2,7 +2,7 @@ import axios from 'axios';
 import setAuthToken from '../axios/set.auth.token';
 import jwt_decode from 'jwt-decode';
 
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { GET_ERRORS, SET_CURRENT_USER,GET_AUTH } from './types';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -40,6 +40,15 @@ export const loginUser = userData => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+// Get Auth
+export const auth = () => dispatch => {
+  const request =axios.get('/api/users/auth').then(res =>res.data);
+  return{
+    type:GET_AUTH,
+    payload: request
+  }
 };
 
 // Set logged in user

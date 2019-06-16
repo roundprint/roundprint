@@ -22,13 +22,13 @@ class Login extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/client/dashboard');
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/client/dashboard');
     }
 
     if (nextProps.errors) {
@@ -96,12 +96,12 @@ class Login extends Component {
               <hr style={{marginBottom:"1em",marginTop:"1em"}}/>
               <div className="ui grid">
                 <div className="six wide column">
-                  <Link to="/register">Forget password</Link>
+                  <Link to="/client/register">Forget password</Link>
                 </div>
                 <div className="ten wide column">
                   <p>Don't have an account?
                     <span className="mini ui button" style={{marginLeft:"1em"}}>
-                      <Link to="/register">Sign Up</Link>
+                      <Link to="/client/register">Sign Up</Link>
                     </span>
                   </p>
                 </div>

@@ -82,7 +82,7 @@ class CreateProfile extends Component {
         let options;
         if(zones === null || Object.keys(zones).length<=0 || zones.includes("Proxy error")){
             alert(`Network Error, Make sure you are connected to Internet. Try Again`);
-            return <Redirect to="/profile" />
+            return <Redirect to="client/profile" />
         }else{
             options = zones.map(zone =>{
                 return <option key={zone._id} value={zone.name}>{zone.name}</option>
@@ -94,7 +94,7 @@ class CreateProfile extends Component {
             <div className="ui">
                 <form className="ui form" onSubmit={this.onSubmit}>
                     <div className="ui animated button" tabIndex="0">
-                        <Link to="/profile">
+                        <Link to="client/profile">
                             <div className="visible content">Back</div>
                             <div className="hidden content">
                                 <i className="left arrow icon"/>
