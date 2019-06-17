@@ -94,7 +94,7 @@ class CreateProfile extends Component {
             <div className="ui">
                 <form className="ui form" onSubmit={this.onSubmit}>
                     <div className="ui animated button" tabIndex="0">
-                        <Link to="client/profile">
+                        <Link to="/client/profile">
                             <div className="visible content">Back</div>
                             <div className="hidden content">
                                 <i className="left arrow icon"/>

@@ -23,8 +23,10 @@ class Profile extends Component {
 
         if(loading){
             return(
-                <div>
-                    Loading .....
+                <div className="ui">
+                    <div className="ui active inverted dimmer">
+                        <div className="ui huge text loader" >Loading</div>
+                    </div>
                 </div>
             )
         }
@@ -56,7 +58,7 @@ class Profile extends Component {
                     </div>
                     <div>
                         <button type="submit" className="ui animated button" tabIndex="0">
-                            <Link to="client/create-profile">
+                            <Link to="/client/create-profile">
                                 <div className="visible content">Edit Profile</div>
                                 <div className="hidden content">
                                     <i className="right arrow icon"/>
@@ -74,7 +76,7 @@ class Profile extends Component {
                                 <hr style={{borderTop: '3px solid #833fb2', width: '50%'}}/>
                                 <h3 style={{paddingTop: '1em'}}> You Don't Have Profile Yet !</h3>
                                 <button type="submit" className="ui animated button" tabIndex="0">
-                                    <Link to="client/create-profile">
+                                    <Link to="/client/create-profile">
                                         <div className="visible content">Create Profile</div>
                                         <div className="hidden content">
                                             <i className="right arrow icon"/>
