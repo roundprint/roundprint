@@ -15,36 +15,47 @@ class Navbar extends Component {
   }
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated, user,role } = this.props.auth;
+    let nav;
 
-    const authLinks = (
-      <div className="right menu">
-          <Link className="ui item" to="/client/profile">
-            Profile
-          </Link>
-          <Link className="ui item" to="/client/dashboard">
-            Dashboard
-          </Link>
-          <Link className="ui item" to="/client/job">
-            Create Job
-          </Link>
-          <Link
-            to="/"
-            onClick={this.onLogoutClick.bind(this)}
-            className="ui item"
-          >
-            Logout
-          </Link>
+    if(role === 'client'){
+      nav = <div className="right menu">
+      <Link className="ui item" to="/client/profile">
+        Profile
+      </Link>
+      <Link className="ui item" to="/client/dashboard">
+        Dashboard
+      </Link>
+      <Link className="ui item" to="/client/job">
+        Create Job
+      </Link>
+      <Link
+        to="/"
+        onClick={this.onLogoutClick.bind(this)}
+        className="ui item"
+      >
+        Logout
+      </Link>
       </div>
-    );
-
+    }else{
+      if(role === 'admin'){
+        nav = <div className="right menu">
+        <Link
+          to="/"
+          onClick={this.onLogoutClick.bind(this)}
+          className="ui item"
+        >
+          Logout
+        </Link>
+        </div>
+      }
+    }
     return (
       <div className="ui secondary menu">
-        {isAuthenticated ? <Link className="item" to="/client/dashboard">
+        {(isAuthenticated && user.auth.role === 'client')? <Link className="item" to="/client/dashboard">
               ROUNDPRINT
         </Link> : null}
-        
-          {isAuthenticated ? authLinks : null}
+          {nav}
       </div>
     );
   }

@@ -45,7 +45,7 @@ export const getZones = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_ZONES,
-        payload: err.response.data
+        payload: {}
       })
     );
 };
@@ -64,7 +64,7 @@ export const getProfileByHandle = handle => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_PROFILE,
-        payload: null
+        payload: {}
       })
     );
 };
@@ -158,7 +158,7 @@ export const getProfiles = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_PROFILES,
-        payload: null
+        payload: {}
       })
     );
 };

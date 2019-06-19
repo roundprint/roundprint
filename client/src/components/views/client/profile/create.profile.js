@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect,Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { createProfile,addAcademic,getZones } from '../../../actions/profile.actions';
+import { createProfile,addAcademic,getZones } from '../../../../actions/profile.actions';
 
 class CreateProfile extends Component {
 
@@ -80,9 +80,8 @@ class CreateProfile extends Component {
         const { errors } = this.state;
 
         let options;
-        if(zones === null || Object.keys(zones).length<=0 || zones.includes("Proxy error")){
-            alert(`Network Error, Make sure you are connected to Internet. Try Again`);
-            return <Redirect to="client/profile" />
+        if(zones === null || Object.keys(zones).length<=0){
+            return <Redirect to="/client/profile" />
         }else{
             options = zones.map(zone =>{
                 return <option key={zone._id} value={zone.name}>{zone.name}</option>

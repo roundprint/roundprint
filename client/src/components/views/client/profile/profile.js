@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link,Redirect } from 'react-router-dom';
 
-import { getCurrentProfile } from '../../../actions/profile.actions'
+import { getCurrentProfile } from '../../../../actions/profile.actions'
 
 class Profile extends Component {
 

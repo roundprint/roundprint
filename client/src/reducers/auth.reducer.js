@@ -13,6 +13,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
+        role: (!isEmpty(action.payload))?action.payload.auth.role:null,
         user: action.payload
       };
     case GET_AUTH:

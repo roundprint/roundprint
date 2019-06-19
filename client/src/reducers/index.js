@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
-import errorReducer from './errorReducer';
-import profileReducer from './profile.reducer';
-import zoneReducer from './zone.reducers';
+import auth from './auth.reducer';
+import errors from './error.reducer';
+import profile from './profile.reducer';
+import zone from './zone.reducers';
 
 export default combineReducers({
-  auth: authReducer,
-  profile: profileReducer,
-  zone: zoneReducer,
-  errors: errorReducer
+  auth,
+  profile,
+  zone,
+  errors
 });

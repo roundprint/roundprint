@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser } from '../../../../actions/auth.actions';
+import { loginUser } from '../../../../../actions/auth.actions';
 import Landing from './login.landing';
-import InputGroup from '../../common/input.group';
-import TextFieldGroup from '../../common/text.field.group';
+import InputGroup from '../../../common/input.group';
+import TextFieldGroup from '../../../common/text.field.group';
 
 class Login extends Component {
   constructor() {
@@ -21,13 +21,13 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
+    if (this.props.auth.role === 'client') {
       this.props.history.push('/client/dashboard');
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+    if (nextProps.auth.role === 'client') {
       this.props.history.push('/client/dashboard');
     }
 
@@ -41,7 +41,8 @@ class Login extends Component {
 
     const userData = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      role: "client"
     };
     
     this.props.loginUser(userData);
@@ -125,4 +126,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser })(withRouter(Login));

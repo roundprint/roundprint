@@ -111,11 +111,21 @@ router.post("/login", (req, res) => {
       return res.status(404).json(errors);
     }
 
+    if(!isEmpty(req.body.role) && (client.role !== req.body.role)){
+      errors.email = "You are not a student";
+      return res.status(404).json(errors);
+    }
+    
+    if((isEmpty(req.body.role) && client.role !== "admin") && (isEmpty(req.body.role) && client.role !== "manager" )){
+      errors.email = "Students not allowed";
+      return res.status(404).json(errors);
+    }
+
     //Check Password
     bcrypt.compare(password, client.password).then(isMatch => {
       if (isMatch) {
         //User Matched
-        const payload = { id: client.id, name: client.name,lastname: client.lastname,email: client.email }; // Create JWT Payload
+        const payload = { auth:client }; // Create JWT Payload
         //Sign Token
         jwt.sign(
           payload,
