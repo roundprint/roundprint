@@ -11,7 +11,7 @@ import Job from './views/client/job/job';
 import Profile from './views/client/profile/profile';
 import CreateProfile from './views/client/profile/create.profile'
 
-import AdminDashboard from './views/admin/dashboard/admin/admin.dashboard'
+import AdminDashboard from './views/admin/dashboard/admin.dashboard'
 import AdminLogin from './views/admin/auth/login/login';
 
 import NotFound from './views/not-found/not.found';
