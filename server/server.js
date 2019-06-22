@@ -25,7 +25,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/roundprint")//process.env.MONGODB_URI || process.env.mongodb_uri
+  .connect(process.env.MONGODB_URI || process.env.mongodb_uri)//process.env.MONGODB_URI || process.env.mongodb_uri
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
