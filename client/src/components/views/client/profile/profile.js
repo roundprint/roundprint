@@ -38,7 +38,7 @@ class Profile extends Component {
                     <div className="ui equal width center aligned padded grid">
                         <div className="row">
                             <div className="column">
-                                <h2 style={{paddingTop: '2em'}}><span>{user.name}</span><span style={{paddingLeft:".5em"}}>{user.lastname}</span></h2>
+                                <h2 style={{paddingTop: '2em'}}><span>{user.auth.name}</span><span style={{paddingLeft:".5em"}}>{user.auth.lastname}</span></h2>
                                 <hr style={{borderTop: '3px solid #833fb2', width: '50%'}}/>
                                 <h5>Phone : <span>{profile.client.phonenumber}</span></h5>
                                 <h5>Email : <span>{profile.client.email}</span></h5>
@@ -72,7 +72,7 @@ class Profile extends Component {
                     <div className="ui equal width center aligned padded grid">
                         <div className="row">
                             <div className="column">
-                                <h2 style={{paddingTop: '2em'}}> Welcome <span>{user.name}</span><span style={{paddingLeft:".5em"}}>{user.lastname}</span></h2>
+                                <h2 style={{paddingTop: '2em'}}> Welcome <span>{user.auth.name}</span><span style={{paddingLeft:".5em"}}>{user.auth.lastname}</span></h2>
                                 <hr style={{borderTop: '3px solid #833fb2', width: '50%'}}/>
                                 <h3 style={{paddingTop: '1em'}}> You Don't Have Profile Yet !</h3>
                                 <button type="submit" className="ui animated button" tabIndex="0">

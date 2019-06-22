@@ -100,16 +100,16 @@ class CreateProfile extends Component {
                             </div>
                         </Link>
                     </div>
-                    <h4 className="ui center aligned dividing large header" style={{marginBottom: '1em'}} >Hi <span>{user.name}</span>, Create Your Profile </h4>
+                    <h4 className="ui center aligned dividing large header" style={{marginBottom: '1em'}} >Hi <span>{user.auth.name}</span>, Create Your Profile </h4>
                     <div className="field">
                         <div className="two fields">
                             <div className="field">
                                 <label>First Name</label>
-                                <input type="text" readonly="" value={user.name} name="name" onChange={this.onChange} placeholder={user.name}/>
+                                <input type="text" readonly="" value={user.auth.name} name="name" onChange={this.onChange} placeholder={user.auth.name}/>
                             </div>
                             <div className="field">
                                 <label>Last Name</label>
-                                <input type="text" readonly=""  value={user.lastname} name="lastname" onChange={this.onChange} placeholder={user.lastname}/>
+                                <input type="text" readonly=""  value={user.auth.lastname} name="lastname" onChange={this.onChange} placeholder={user.auth.lastname}/>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@ class CreateProfile extends Component {
                         <div className="two fields">
                             <div className="field">
                                 <label>Email</label>
-                                <input type="email" value={this.state.email} name="email" onChange={this.onChange} placeholder={user.email?user.email:"Email"}/>
+                                <input type="email" value={this.state.email} name="email" onChange={this.onChange} placeholder={user.auth.email?user.auth.email:"Email"}/>
                             </div>
                             <div className="field">
                                 <label>Default Delivery Zone</label>
