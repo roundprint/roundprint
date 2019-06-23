@@ -21,7 +21,8 @@ module.exports = passport => {
   passport.use(
     "client",
     new JwtStrategy(opts, (jwt_payload, done) => {
-        User.findById(jwt_payload.id)
+      console.log(jwt_payload);
+        User.findById(jwt_payload.auth._id)
         .then(client => {
           if (!isEmpty(client) && client.role === 'client') {
             return done(null, client);
@@ -35,7 +36,7 @@ module.exports = passport => {
   passport.use(
     "manager",
     new JwtStrategy(opts, (jwt_payload, done) => {
-      User.findById(jwt_payload.id)
+      User.findById(jwt_payload.auth._id)
         .then(manager => {
           if (!isEmpty(manager) && manager.role === 'manager') {
             return done(null, manager);
@@ -49,7 +50,7 @@ module.exports = passport => {
   passport.use(
     "admin",
     new JwtStrategy(opts, (jwt_payload, done) => {
-        User.findById(jwt_payload.id)
+        User.findById(jwt_payload.auth._id)
         .then(admin => {
           if (!isEmpty(admin) && admin.role === 'admin') {
             return done(null, admin);

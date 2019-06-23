@@ -51,6 +51,8 @@ class CreateProfile extends Component {
             regnumber = (Object.keys(profile).length>0 &&profile.regnumber)?profile.regnumber:this.state.regnumber;
             email = user.email?user.email:this.state.email;
 
+            console.log(this.state.deliveryzone);
+
 
             const profileData = {
                 regnumber: regnumber,
