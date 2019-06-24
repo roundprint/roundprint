@@ -51,9 +51,6 @@ class CreateProfile extends Component {
             regnumber = (Object.keys(profile).length>0 &&profile.regnumber)?profile.regnumber:this.state.regnumber;
             email = user.email?user.email:this.state.email;
 
-            console.log(this.state.deliveryzone);
-
-
             const profileData = {
                 regnumber: regnumber,
                 zonename: this.state.deliveryzone,
@@ -102,7 +99,7 @@ class CreateProfile extends Component {
                             </div>
                         </Link>
                     </div>
-                    <h4 className="ui center aligned dividing large header" style={{marginBottom: '1em'}} >Hi <span>{user.auth.name}</span>, Create Your Profile </h4>
+                    <h4 className="ui center aligned dividing large header" style={{marginBottom: '1em'}} >Hi <span>{user.auth.name}</span>, {Object.keys(profile).length>0?"Edit Your Profile":"Create Your Profile"} </h4>
                     <div className="field">
                         <div className="two fields">
                             <div className="field">
@@ -135,11 +132,23 @@ class CreateProfile extends Component {
                             <div className="two fields">
                                 <div className="field">
                                     <label>Field Of Study</label>
-                                    <input type="text" value={this.state.program} name="program" onChange={this.onChange} placeholder={(Object.keys(profile).length>0 && profile.academic[0].program)?profile.academic[0].program:"Degree Program e.g HACC,HBSCT"}/>
+                                    {
+                                        (Object.keys(profile).length>0 && profile.academic[0].program)?
+                                        <input type="text" readonly=""  value={profile.academic[0].program} name="program" onChange={this.onChange} placeholder={profile.academic[0].program}/>
+                                        :
+                                        <input type="text" value={this.state.program} name="program" onChange={this.onChange} placeholder={"Degree Program e.g HACC,HBSCT"}/>
+                                    }
+                                    
                                 </div>
                                 <div className="field">
                                     <label>Reg #</label>
-                                    <input type="text" value={this.state.regnumber} name="regnumber" onChange={this.onChange} placeholder={(Object.keys(profile).length>0 && profile.regnumber)?profile.regnumber:"Registration Number"}/>
+                                    {
+                                        (Object.keys(profile).length>0 && profile.regnumber)?
+                                        <input type="text" readonly="" value={profile.regnumber} name="regnumber" onChange={this.onChange} placeholder={profile.regnumber}/>
+                                        :
+                                        <input type="text" value={this.state.regnumber} name="regnumber" onChange={this.onChange} placeholder={"Registration Number"}/>
+                                    }
+    
                                 </div>
                             </div>
                     </div>
