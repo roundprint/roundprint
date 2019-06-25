@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
+const path = require('path');
 
 
 //=================================
@@ -40,7 +41,6 @@ app.use(bodyParser.json());
 //=================================
 if(process.env.MODE_ENV === 'production'){
   app.use(express.static(path.resolve(__dirname+"/../client/build")));
-  
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname,"../client/build/index.html"));
   });
