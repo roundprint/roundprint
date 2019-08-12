@@ -26,7 +26,7 @@ class Navbar extends Component {
       <Link className="ui item" to="/client/dashboard">
         Dashboard
       </Link>
-      <Link className="ui item" to="/client/job">
+      <Link className="ui item" to="/client/create-job">
         Create Job
       </Link>
       <Link
