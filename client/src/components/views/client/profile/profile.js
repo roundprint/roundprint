@@ -9,7 +9,7 @@ class Profile extends Component {
 
     componentDidMount() {
         if(!this.props.getCurrentProfile()){
-            return <Redirect to="client/dashboard" />
+            return <Redirect to="/client/dashboard" />
         }
 
         this.props.getCurrentProfile();

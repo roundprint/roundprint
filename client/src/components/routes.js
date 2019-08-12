@@ -8,6 +8,7 @@ import Register from './views/client/auth/register/register';
 import Login from './views/client/auth/login/login';
 import Dashboard from './views/client/dashboard/dashboard';
 import Job from './views/client/job/job';
+import CreateJob from './views/client/job/create.job';
 import Profile from './views/client/profile/profile';
 import CreateProfile from './views/client/profile/create.profile'
 
@@ -34,6 +35,9 @@ class Routes extends Component {
               </Switch>
               <Switch>
                 <Route exact path="/client/job" component={Auth(Job,true)} />
+              </Switch>
+              <Switch>
+                <Route exact path="/client/create-job" component={Auth(CreateJob,true)} />
               </Switch>
               <Switch>
                 <Route exact path="/client/profile" component={Auth(Profile,true)} />
